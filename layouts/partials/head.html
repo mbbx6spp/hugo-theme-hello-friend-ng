@@ -11,9 +11,9 @@
 {{ block "title" . }}
     <title>
         {{ if .IsHome }}
-            {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }} {{ end }}
+            {{ printf "%s: %s - %s" $.Site.Title $.Site.Params.Subtitle . | truncate 60 }}
         {{ else }}
-            {{ .Title }} :: {{ $.Site.Title }} {{ with $.Site.Params.Subtitle }} — {{ . }}{{ end }}
+            {{ printf "%s: %s" $.Page.Title $.Site.Title | truncate 60 }}
         {{ end }}
     </title>
 {{ end }}

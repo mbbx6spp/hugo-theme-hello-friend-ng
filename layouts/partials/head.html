@@ -1,17 +1,16 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ range .Site.Author }}{{ . }} {{ end }}{{ end }}">
 {{ if .IsHome }}
   {{ $description := .Site.Params.Subtitle }}
-  <meta name="description" content="{{ printf "%s" $description | plainify | truncate 155 }}" />
+  <meta name="description" content="{{ $description | plainify | truncate 155 }}" />
 {{ else }}
   {{ if .Params.Description }}
     {{ $description := .Params.Description }}
-    <meta name="description" content="{{ printf "%s" $description | truncate 155 }}" />
+    <meta name="description" content="{{ $description | truncate 155 }}" />
   {{ else }}
     {{ $description := .Summary }}
-    <meta name="description" content="{{ printf "%s" $description | plainify | truncate 155 }}" />
+    <meta name="description" content="{{ $description | plainify | truncate 155 }}" />
   {{ end }}
 {{ end }}
 <meta name="keywords" content="{{ .Site.Params.keywords }}{{ if .Params.tags }}{{ range .Params.tags }}, {{ . }}{{ end }}{{ end }}" />

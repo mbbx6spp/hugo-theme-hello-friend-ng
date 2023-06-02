@@ -1,7 +1,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-{{ $description := printf "%s | %s" .Params.Description .Site.Params.Subtitle }}
+{{ $description := printf "%s | %s" .Site.Params.Description .Site.Params.Subtitle}}
+{{ if .Page.Params.Description }}
+{{ $description := printf "%s | %s" .Page.Params.Description .Site.Params.Subtitle }}
+{{ end }}
 <meta name="description" content="{{ $description | plainify | truncate 155 }}" />
 <meta name="keywords" content="{{ .Site.Params.keywords }}{{ if .Params.tags }}{{ range .Params.tags }}, {{ . }}{{ end }}{{ end }}" />
 <meta name="robots" content="noodp" />
@@ -33,7 +36,21 @@
 {{- partial "favicons.html" . }}
 
 {{ template "_internal/schema.html" . }}
-{{ template "_internal/twitter_cards.html" . }}
+
+<meta name="twitter:card" content="summary_large_image">
+{{ if .Site.Params.twitterImage }}
+<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.twitterImage }}">
+{{ end }}
+{{ if .Page.Title }}
+<meta name="twitter:title" content="{{ .Page.Title | truncate 70 }}">
+{{ else }}
+<meta name="twitter:title" content="{{ .Site.Title | truncate 70 }}">
+{{ end }}
+{{ if .Page.Description }}
+<meta name="twitter:description" content="{{ .Page.Description | truncate 190 }}">
+{{ else }}
+<meta name="twitter:description" content="{{ .Site.Params.Description | truncate 190 }}">
+{{ end }}
 
 {{ if isset .Site.Taxonomies "series" }}
     {{ template "_internal/opengraph.html" . }}
